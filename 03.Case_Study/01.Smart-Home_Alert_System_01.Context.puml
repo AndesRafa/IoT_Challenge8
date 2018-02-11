@@ -1,4 +1,6 @@
 @startuml
+title Smart-Home Alert System - Context
+
 'Entities'
 actor Residents as res
 storage "Fire Detector" as fd <<Sensor>>
