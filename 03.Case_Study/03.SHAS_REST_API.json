@@ -1,0 +1,219 @@
+{
+  "openapi": "3.0.0",
+  "info": {
+    "title": "SHAS API",
+    "description": "Smart-Home Alarm System RESTful API for Fire and Carbon Monoxide measurement and alerting.",
+    "version": "0.0.1"
+  },
+  "servers": [
+    {
+      "url": "https://shas.io/v1",
+      "description": "Optional server description, e.g. Main (production) server"
+    },
+    {
+      "url": "http://staging-shas.io",
+      "description": "Optional server description, e.g. Internal staging server for testing"
+    }
+  ],
+  "paths": {
+    "/fire_report": {
+      "get": {
+        "summary": "Returns a list of fire reports.",
+        "responses": {
+          "200": {
+            "description": "A JSON array of reported fires.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "type": "string"
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "post": {
+        "summary": "Creates a fire report entry.",
+        "responses": {
+          "200": {
+            "description": "Fire report successful",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "fireDptID": {
+                      "type": "integer"
+                    },
+                    "name": {
+                      "type": "string"
+                    },
+                    "eta": {
+                      "type": "integer"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/fire_report/{id}": {
+      "get": {
+        "summary": "Gets a fire report by id.",
+        "operationId": "getFireReportByID",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "fire report ID",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int64"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "A JSON object with the fire report.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "id": {
+                      "type": "integer"
+                    },
+                    "sensorID": {
+                      "type": "integer"
+                    },
+                    "sensorModelID": {
+                      "type": "string"
+                    },
+                    "measurement": {
+                      "type": "integer"
+                    },
+                    "measureDate": {
+                      "type": "integer"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/carbon_monoxide": {
+      "get": {
+        "summary": "Returns a list of carbon monoxide measurements.",
+        "responses": {
+          "200": {
+            "description": "A JSON array of carbon monoxide measurements.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "type": "object"
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "post": {
+        "summary": "Creates a carbon monoxide measurement entry.",
+        "requestBody": {
+          "description": "Carbon monoxide measurement JSON entry.",
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "sensorID": {
+                    "type": "integer"
+                  },
+                  "sensorModelID": {
+                    "type": "string"
+                  },
+                  "measurement": {
+                    "type": "integer"
+                  },
+                  "measureDate": {
+                    "type": "integer"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Carbon monoxide measurement successfully reported.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "items": {
+                    "type": "string"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/carbon_monoxide/{id}": {
+      "get": {
+        "summary": "Gets a carbon monoxide measurement by id.",
+        "operationId": "getCarbonMonoxideMeasurementByID",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "user ID",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int64"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "A JSON object with the carbon monoxide measurement.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "id": {
+                      "type": "integer"
+                    },
+                    "sensorID": {
+                      "type": "integer"
+                    },
+                    "sensorModelID": {
+                      "type": "string"
+                    },
+                    "measurement": {
+                      "type": "integer"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}
