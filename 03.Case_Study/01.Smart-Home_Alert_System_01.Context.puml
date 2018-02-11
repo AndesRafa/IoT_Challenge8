@@ -1,0 +1,26 @@
+@startuml
+'Entities'
+actor Residents as res
+storage "Fire Detector" as fd <<Sensor>>
+storage "Carbon Monoxide Sensor" as cmd <<Sensor>>
+
+'System'
+rectangle "Smart-Home Alert System" as smas <<System>>
+
+'Externals'
+rectangle "Gas Service Provider" as gsp <<External>>
+rectangle "Fire Department" as fdpt <<External>>
+
+'Databases'
+database "Fire Detector Data" as fdb
+database "Carbon Monoxide Data" as cmdb
+
+'Relations'
+fd --> smas
+cmd --> smas
+res <-right- smas
+smas --> gsp
+smas --> fdpt
+smas <--> fdb
+smas <--> cmdb
+@enduml
