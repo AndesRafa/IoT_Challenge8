@@ -1,0 +1,196 @@
+openapi: 3.0.0
+info:
+  title: SHAS API
+  description: >-
+    Smart-Home Alarm System RESTful API for Fire and Carbon Monoxide measurement
+    and alerting.
+  version: 0.0.1
+servers:
+  - url: 'https://shas.io/v1'
+    description: Production environment.
+  - url: 'http://staging-shas.io'
+    description: Staging environment.
+paths:
+  /fire_report:
+    get:
+      summary: Returns a list of fire reports.
+      responses:
+        '200':
+          description: A JSON array of reported fires.
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    id:
+                      type: integer
+                    sensorID:
+                      type: integer
+                    sensorModelID:
+                      type: string
+                    measurement:
+                      type: integer
+                    measureDate:
+                      type: integer
+                    fireDptID:
+                      type: integer
+                    name:
+                      type: string
+                    eta:
+                      type: integer
+    post:
+      summary: Creates a fire report entry.
+      requestBody:
+        description: Room temperature measurement JSON entry.
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                sensorID:
+                  type: integer
+                sensorModelID:
+                  type: string
+                measurement:
+                  type: integer
+                measureDate:
+                  type: integer
+      responses:
+        '200':
+          description: Fire report successful
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  fireDptID:
+                    type: integer
+                  name:
+                    type: string
+                  eta:
+                    type: integer
+  '/fire_report/{id}':
+    get:
+      summary: Gets a fire report by id.
+      operationId: getFireReportByID
+      parameters:
+        - name: id
+          in: path
+          description: fire report ID
+          required: true
+          schema:
+            type: integer
+            format: int64
+      responses:
+        '200':
+          description: A JSON object with the fire report.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  id:
+                    type: integer
+                  sensorID:
+                    type: integer
+                  sensorModelID:
+                    type: string
+                  measurement:
+                    type: integer
+                  measureDate:
+                    type: integer
+                  fireDptID:
+                    type: integer
+                  name:
+                    type: string
+                  eta:
+                    type: integer
+  /co_report:
+    get:
+      summary: Returns a list of carbon monoxide reports.
+      responses:
+        '200':
+          description: A JSON array of carbon monoxide reports.
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    id:
+                      type: integer
+                    sensorID:
+                      type: integer
+                    sensorModelID:
+                      type: string
+                    clientID:
+                      type: integer
+                    measurement:
+                      type: integer
+                    measureDate:
+                      type: string
+    post:
+      summary: Creates a carbon monoxide report.
+      requestBody:
+        description: Carbon monoxide report JSON.
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                sensorID:
+                  type: integer
+                sensorModelID:
+                  type: string
+                clientID:
+                  type: integer
+                measurement:
+                  type: integer
+                measureDate:
+                  type: string
+      responses:
+        '200':
+          description: Carbon monoxide report successfully delivered.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  success:
+                    type: boolean
+  '/co_report/{id}':
+    get:
+      summary: Gets a carbon monoxide report by id.
+      operationId: getCOReportByID
+      parameters:
+        - name: id
+          in: path
+          description: user ID
+          required: true
+          schema:
+            type: integer
+            format: int64
+      responses:
+        '200':
+          description: A JSON object with the carbon monoxide report.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  id:
+                    type: integer
+                  sensorID:
+                    type: integer
+                  sensorModelID:
+                    type: string
+                  clientID:
+                    type: integer
+                  measurement:
+                    type: integer
+                  measureDate:
+                    type: string
+
