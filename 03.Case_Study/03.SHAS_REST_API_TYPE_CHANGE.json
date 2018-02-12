@@ -42,7 +42,7 @@
                         "type": "integer"
                       },
                       "measureDate": {
-                        "type": "integer"
+                        "type": "string"
                       },
                       "fireDptID": {
                         "type": "integer"
@@ -51,7 +51,7 @@
                         "type": "string"
                       },
                       "eta": {
-                        "type": "integer"
+                        "type": "string"
                       }
                     }
                   }
@@ -80,7 +80,7 @@
                     "type": "integer"
                   },
                   "measureDate": {
-                    "type": "integer"
+                    "type": "string"
                   }
                 }
               }
@@ -149,7 +149,7 @@
                       "type": "integer"
                     },
                     "measureDate": {
-                      "type": "integer"
+                      "type": "string"
                     },
                     "fireDptID": {
                       "type": "integer"
