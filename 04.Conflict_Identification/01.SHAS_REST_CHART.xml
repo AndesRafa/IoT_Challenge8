@@ -5,20 +5,32 @@
     <rel value="report_fire"/>
     <href value="https://shash.io/fire_report/"/>
     <interaction value="list" method="GET" protocol="HTTP">
-      <rep type="json">
-        <content type="application/json">
-          <schema type="object">
-            <properties>
-              <sensorID type="integer"></sensorID>
-              <sensorModelID type="integer"></sensorModelID>
-              <measurement type="integer"></measurement>
-              <measureDate type="integer"></measureDate>
-            </properties>
-          </schema>
-        </content>
-      </rep>
+      <response>
+        <rep status="200">
+          <content type="application/json">
+            <schema type="array">
+              <items type="object">
+                <properties>
+                  <id type="integer"></id>
+                  <sensorID type="integer"></sensorID>
+                  <sensorModelID type="integer"></sensorModelID>
+                  <measurement type="integer"></measurement>
+                  <measureDate type="integer"></measureDate>
+                  <fireDptID type="integer"></fireDptID>
+                  <name type="string"></name>
+                  <eta type="integer"></eta>
+                </properties>
+              </items>
+            </schema>
+          </content>
+        </rep>
+      </response>
     </interaction>
     <interaction value="create" method="POST" protocol="HTTP">
+      <response>
+        <rep status="200">
+        </rep>
+      </response>
       <request>
         <rep type="json">
           <content type="application/json">
@@ -34,5 +46,5 @@
         </rep>
       </request>
     </interaction>
-    </link>
+  </link>
 </api>
