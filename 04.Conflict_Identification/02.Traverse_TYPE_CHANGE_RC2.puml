@@ -1,0 +1,34 @@
+@startuml
+title Traverse RC2 - TYPE CHANGE
+
+top to bottom direction
+rectangle LIST {
+    storage "Welcome" as w1
+    storage "List of Fire Reports" as lsfr
+    rectangle "List" as ls
+          
+    w1 --> ls
+    ls --> lsfr
+}
+'note top of ls :Request to list fire reports'
+
+
+rectangle CREATE {
+    storage "Welcome" as w2
+    storage "Fire Report Created" as mkfr
+    rectangle "Create" as mk
+
+    w2 --> mk
+    mk --> mkfr
+}
+'note top of mk :Request to create a fire report'
+
+rectangle READ {
+    storage "Welcome" as w3
+    storage "Read Fire Report" as rfr
+    rectangle "READ" as r
+
+    w3 --> r
+    r --> rfr
+}
+@enduml

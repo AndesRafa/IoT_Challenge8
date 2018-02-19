@@ -5,6 +5,8 @@
     <rel value="report_fire"/>
     <href value="https://shash.io/fire_report/"/>
     <interaction value="list" method="GET" protocol="HTTP">
+      <request>
+      </request>
       <response>
         <rep status="200">
           <content type="application/json">
@@ -27,10 +29,6 @@
       </response>
     </interaction>
     <interaction value="create" method="POST" protocol="HTTP">
-      <response>
-        <rep status="200">
-        </rep>
-      </response>
       <request>
         <rep type="json">
           <content type="application/json">
@@ -45,6 +43,39 @@
           </content>
         </rep>
       </request>
+      <response>
+        <rep status="200">
+        </rep>
+      </response>
     </interaction>
   </link>
+  <link id="single_report_fire">
+    <description value="Endpoint for a single Fire Report resource"/>
+    <rel value="single_report_fire"/>
+    <href value="https://shash.io/fire_report/{id}"/>
+    <interaction value="read" method="GET" protocol="HTTP">
+      <request>
+        <parameter name="id" type="integer" in="path" required="true">
+        </parameter>
+      </request>
+      <response>
+        <rep status="200">
+          <content type="application/json">
+            <schema type="object">
+              <properties>
+                <id type="integer"></id>
+                <sensorID type="integer"></sensorID>
+                <sensorModelID type="integer"></sensorModelID>
+                <measurement type="integer"></measurement>
+                <measureDate type="integer"></measureDate>
+                <fireDptID type="integer"></fireDptID>
+                <name type="string"></name>
+                <eta type="integer"></eta>
+              </properties>
+            </schema>
+          </content>
+        </rep>
+      </response>
+    </interaction>
+  </link> 
 </api>
