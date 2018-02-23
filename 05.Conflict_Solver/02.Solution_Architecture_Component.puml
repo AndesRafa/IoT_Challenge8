@@ -1,0 +1,36 @@
+@startuml
+title Conflict Solver - Component
+
+'Components'
+skinparam componentStyle uml2
+component "API Manager" as apimngr
+component "Compatibility Checker" as compchecker
+component "Compatibility Solver" as compsolver
+component "Navigation Coordinator" as navcor
+
+'Interfaces'
+interface "HTTP" as http_apimngr
+interface "HTTP" as http_navcor
+interface "HTTP" as http_apinodes
+
+'Clouds'
+cloud {
+    component "Adaptation Nodes" as apinodes
+}
+
+'Repositories'
+database "API Repository" as apirep
+database "Navigation Repository" as navrep
+
+'Relations'
+http_apimngr -down- apimngr
+apimngr -down-> apirep
+apirep <-right- compchecker
+compsolver <-left- compchecker
+compsolver -right-> navrep
+navcor -down-> navrep
+http_navcor -down- navcor
+apinodes <-down- compsolver
+http_apinodes -down- apinodes
+navcor --> http_apinodes
+@enduml
