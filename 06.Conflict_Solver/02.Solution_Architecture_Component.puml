@@ -1,36 +1,89 @@
 @startuml
+
+'Title'
 title Conflict Solver - Component
 
-'Components'
+'Use UML2 icons'
 skinparam componentStyle uml2
+
+
+'Components'
 component "API Manager" as apimngr
 component "Compatibility Checker" as compchecker
-component "Compatibility Solver" as compsolver
-component "Navigation Coordinator" as navcor
+component "Node Solver" as nodesolver
+component "Node Coordinator" as nodecoor
+
 
 'Interfaces'
-interface "HTTP" as http_apimngr
-interface "HTTP" as http_navcor
-interface "HTTP" as http_apinodes
+interface "HTTP" as http_nodecoor
+interface "HTTP" as http_nodecloud
+interface "CoAP" as coap_apicloud
+
+
 
 'Clouds'
-cloud {
-    component "Adaptation Nodes" as apinodes
+cloud "Node Cloud" as nodecloud {
+    component "Adaptation Node 1...N" as apinodes
+}
+cloud "API Cloud" as apicloud {
+    component "API 1...N" as apis
 }
 
 'Repositories'
 database "API Repository" as apirep
-database "Navigation Repository" as navrep
+database "Node Link Repository" as noderep
+
 
 'Relations'
-http_apimngr -down- apimngr
-apimngr -down-> apirep
-apirep <-right- compchecker
-compsolver <-left- compchecker
-compsolver -right-> navrep
-navcor -down-> navrep
-http_navcor -down- navcor
-apinodes <-down- compsolver
-http_apinodes -down- apinodes
-navcor --> http_apinodes
+http_nodecoor -down- nodecoor
+nodecoor -left-> noderep
+nodecoor -down-( http_nodecloud
+http_nodecloud -right- nodecloud
+nodecloud -down-( coap_apicloud
+coap_apicloud -right- apicloud
+nodesolver -up-> noderep
+nodesolver <-right- compchecker
+compchecker -down-> apirep
+apimngr -right-> apirep
+
+'Notes'
+note right of nodecoor
+    Works as HTTP Proxy.
+    Redirects all requests properly
+    to nodes in the adaptation cloud.
+end note
+
+note right of compchecker
+    Compares two versions 
+    of an API definition.
+    Reports API diferences 
+    as small differential.
+end note
+
+note left of nodesolver
+    Parses API differentials
+    into link navigations accross
+    the node cloud.
+end note
+
+note left of apimngr
+    Stores API information
+    for compatibility analysis.
+end note
+
+note right of nodecloud
+    Holds all request adaptation nodes.
+    Each node in the cloud takes care of
+    adjusting each request for the next
+    nodes located deeper into the cloud
+    until the message is properly formatted
+    to consume the latest version of the
+    intended API.
+end note
+
+note right of apicloud
+    Holds the latest version of the APIS
+    for system client IoT devices.
+end note
+
 @enduml

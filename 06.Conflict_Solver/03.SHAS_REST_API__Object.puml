@@ -1,0 +1,120 @@
+@startuml
+'** Title **'
+title Case Study - Objects
+
+'** Diagram Direction **'
+'left to right direction'
+
+'** Use UML2 icons **'
+skinparam componentStyle uml2
+
+
+'/////////// NODES ///////////'
+'** Main **'
+object "API Definition (OpenApi)" as apidef
+
+'** API Description Nodes **'
+object "OpenAPI" as api_openapi {
+    version = "3.0.0"
+}
+object "Info" as api_info {
+    title = "SHAS API"
+    description = "Smart-Home Alarm System API"
+    version = "1.0.0"
+}
+object "Servers" as api_servers
+object "Paths" as api_paths
+
+'** Server Nodes **'
+object "Production" as server_prod {
+    url = "https://shas.io/v1"
+    description = "Production environment"
+}
+object "Staging" as server_stg {
+    url = "http://staging-shas.io"
+    description = "Staging environment"
+}
+
+'** Path **'
+object "/fire_report" as path_firerep
+object "/fire_report/{id}" as path_firerepid
+object "/carbon_monoxide" as path_corep
+object "/carbon_monoxide" as path_corepid
+
+'** Verb **'
+object "GET" as firerep_get
+object "POST" as firerep_post
+object "GET" as firerepid_get
+object "GET" as corep_get
+object "POST" as corep_post
+object "GET" as corepid_get
+
+'** Verb Path Params **'
+object "Path Params" as firerepid_get_params
+object "Path Params" as corepid_get_params
+
+'** Path Params **'
+object "Fire Report Id" as firerepid_get_params_id {
+    in = "path"
+    name = "id"
+    type = "integer"
+    required = "true"
+}
+object "Carbon Monoxide Report Id" as corepid_get_params_id {
+    in = "path"
+    name = "id"
+    type = "integer"
+    required = "true"
+}
+
+'** Response **'
+object "Response" as firerep_get_resp
+object "Response" as firerep_post_resp
+object "Response" as firerepid_get_resp
+object "Response" as corep_get_resp
+object "Response" as corep_post_resp
+object "Response" as corepid_get_resp
+
+
+'/////////// RELATIONS ///////////'
+'** Relations - API **'
+apidef *-- api_openapi
+apidef *-- api_info
+apidef *-- api_servers
+apidef *-- api_paths
+
+'** Relations - Servers **'
+api_servers *-- server_prod
+api_servers *-- server_stg
+
+'** Relations - Paths **'
+api_paths *-- path_firerep
+api_paths *-- path_firerepid
+api_paths *-- path_corep
+api_paths *-- path_corepid
+
+'** Relations - Verbs **'
+path_firerep *-- firerep_get
+path_firerep *-- firerep_post
+path_firerepid *-- firerepid_get
+path_corep *-- corep_get
+path_corep *-- corep_post
+path_corepid *-- corepid_get
+
+'** Relations - Verbs - Path Params **'
+firerepid_get *-- firerepid_get_params
+corepid_get *-- corepid_get_params
+
+'** Relations - Verbs - Path Params - Ids **'
+firerepid_get_params *-- firerepid_get_params_id
+corepid_get_params *-- corepid_get_params_id
+
+'** Relations - Responses **'
+firerep_get *-- firerep_get_resp
+firerep_post *-- firerep_post_resp
+firerepid_get *-- firerepid_get_resp
+corep_get *-- corep_get_resp
+corep_post *-- corep_post_resp
+corepid_get *-- corepid_get_resp
+
+@enduml
