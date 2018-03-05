@@ -1,6 +1,6 @@
 @startuml
 '** Title **'
-title Case Study - Objects
+title Case Study - API Objects
 
 '** Diagram Direction **'
 'left to right direction'
@@ -67,6 +67,40 @@ object "Carbon Monoxide Report Id" as corepid_get_params_id {
     required = "true"
 }
 
+'** Request **'
+object "Request" as firerep_post_req
+object "Request" as corep_post_req
+
+'** Request - Content **'
+object "Content" as firerep_post_req_cont
+object "Content" as corep_post_req_cont
+
+'** Request - Content - Representation **'
+object "Representation" as firerep_post_req_rep {
+    representation = "application/json"
+}
+object "Representation" as corep_post_req_rep {
+    representation = "application/json"
+}
+
+'** Request - Content - Schema **'
+object "Schema" as firerep_post_req_schema
+object "Schema" as corep_post_req_schema
+
+'** Request - Content - Schema - Properties **'
+object "Properties" as firerep_post_req_schema_prop {
+    sensorID = integer
+    sensorModelID = string
+    measurement = integer
+    measerureDate = integer
+}
+object "Properties" as corep_post_req_schema_prop {
+    sensorID = integer
+    sensorModelID = string
+    measurement = integer
+    measerureDate = integer
+}
+
 '** Response **'
 object "Response" as firerep_get_resp
 object "Response" as firerep_post_resp
@@ -75,25 +109,114 @@ object "Response" as corep_get_resp
 object "Response" as corep_post_resp
 object "Response" as corepid_get_resp
 
+'** Response - Content **'
+object "Content" as firerep_get_resp_cont
+object "Content" as firerep_post_resp_cont
+object "Content" as firerepid_get_resp_cont
+object "Content" as corep_get_resp_cont
+object "Content" as corep_post_resp_cont
+object "Content" as corepid_get_resp_cont
+
+'** Response - Content - Representation **'
+object "Representation" as firerep_get_resp_rep {
+    representation = "application/json"
+}
+object "Representation" as firerep_post_resp_rep {
+    representation = "application/json"
+}
+object "Representation" as firerepid_get_resp_rep {
+    representation = "application/json"
+}
+object "Representation" as corep_get_resp_rep {
+    representation = "application/json"
+}
+object "Representation" as corep_post_resp_rep {
+    representation = "application/json"
+}
+object "Representation" as corepid_get_resp_rep {
+    representation = "application/json"
+}
+
+'** Response - Content - Schema **'
+object "Schema" as firerep_get_resp_schema
+object "Schema" as firerep_post_resp_schema
+object "Schema" as firerepid_get_resp_schema
+object "Schema" as corep_get_resp_schema
+object "Schema" as corep_post_resp_schema
+object "Schema" as corepid_get_resp_schema
+
+'** Response - Content - Schema - Properties **'
+object "Properties" as firerep_get_resp_schema_prop {
+    id = integer
+    sensorID = integet
+    sensorModelID = string
+    measurement = integer
+    measerureDate = integer
+    fireDptID = integer
+    name = string
+    eta = integer
+}
+object "Properties" as firerep_post_resp_schema_prop {
+    sensorID = integet
+    sensorModelID = string
+    measurement = integer
+    measerureDate = integer
+}
+object "Properties" as firerepid_get_resp_schema_prop {
+    id = integer
+    sensorID = integet
+    sensorModelID = string
+    measurement = integer
+    measerureDate = integer
+    fireDptID = integer
+    name = string
+    eta = integer
+}
+object "Properties" as corep_get_resp_schema_prop {
+    id = integer
+    sensorID = integet
+    sensorModelID = string
+    measurement = integer
+    measerureDate = integer
+    fireDptID = integer
+    name = string
+    eta = integer
+}
+object "Properties" as corep_post_resp_schema_prop {
+    sensorID = integet
+    sensorModelID = string
+    measurement = integer
+    measerureDate = integer
+}
+object "Properties" as corepid_get_resp_schema_prop {
+    id = integer
+    sensorID = integet
+    sensorModelID = string
+    measurement = integer
+    measerureDate = integer
+    fireDptID = integer
+    name = string
+    eta = integer
+}
 
 '/////////// RELATIONS ///////////'
-'** Relations - API **'
+'** API **'
 apidef *-- api_openapi
 apidef *-- api_info
 apidef *-- api_servers
 apidef *-- api_paths
 
-'** Relations - Servers **'
+'** Servers **'
 api_servers *-- server_prod
 api_servers *-- server_stg
 
-'** Relations - Paths **'
+'** Paths **'
 api_paths *-- path_firerep
 api_paths *-- path_firerepid
 api_paths *-- path_corep
 api_paths *-- path_corepid
 
-'** Relations - Verbs **'
+'** Verbs **'
 path_firerep *-- firerep_get
 path_firerep *-- firerep_post
 path_firerepid *-- firerepid_get
@@ -101,15 +224,35 @@ path_corep *-- corep_get
 path_corep *-- corep_post
 path_corepid *-- corepid_get
 
-'** Relations - Verbs - Path Params **'
+'** Verbs - Path Params **'
 firerepid_get *-- firerepid_get_params
 corepid_get *-- corepid_get_params
 
-'** Relations - Verbs - Path Params - Ids **'
+'** Verbs - Path Params - Ids **'
 firerepid_get_params *-- firerepid_get_params_id
 corepid_get_params *-- corepid_get_params_id
 
-'** Relations - Responses **'
+'** Requests **'
+firerep_post *-- firerep_post_req
+corep_post *-- corep_post_req
+
+'** Requests - Content **'
+firerep_post_req *-- firerep_post_req_cont
+corep_post_req *-- corep_post_req_cont
+
+'** Requests - Content - Representation **'
+firerep_post_req_cont *-- firerep_post_req_rep
+corep_post_req_cont *-- corep_post_req_rep
+
+'** Requests - Content - Representation - Schema **'
+firerep_post_req_rep *-- firerep_post_req_schema
+corep_post_req_rep *-- corep_post_req_schema
+
+'** Requests - Content - Representation - Properties **'
+firerep_post_req_schema *-- firerep_post_req_schema_prop
+corep_post_req_schema *-- corep_post_req_schema_prop
+
+'** Responses **'
 firerep_get *-- firerep_get_resp
 firerep_post *-- firerep_post_resp
 firerepid_get *-- firerepid_get_resp
@@ -117,4 +260,35 @@ corep_get *-- corep_get_resp
 corep_post *-- corep_post_resp
 corepid_get *-- corepid_get_resp
 
+'** Responses - Content **'
+firerep_get_resp *-- firerep_get_resp_cont
+firerep_post_resp *-- firerep_post_resp_cont
+firerepid_get_resp *-- firerepid_get_resp_cont
+corep_get_resp *-- corep_get_resp_cont
+corep_post_resp *-- corep_post_resp_cont
+corepid_get_resp *-- corepid_get_resp_cont
+
+'** Responses - Content - Representation **'
+firerep_get_resp_cont *-- firerep_get_resp_rep
+firerep_post_resp_cont *-- firerep_post_resp_rep
+firerepid_get_resp_cont *-- firerepid_get_resp_rep
+corep_get_resp_cont *-- corep_get_resp_rep
+corep_post_resp_cont *-- corep_post_resp_rep
+corepid_get_resp_cont *-- corepid_get_resp_rep
+
+'** Responses - Content - Representation - Schema**'
+firerep_get_resp_rep *-- firerep_get_resp_schema
+firerep_post_resp_rep *-- firerep_post_resp_schema
+firerepid_get_resp_rep *-- firerepid_get_resp_schema
+corep_get_resp_rep *-- corep_get_resp_schema
+corep_post_resp_rep *-- corep_post_resp_schema
+corepid_get_resp_rep *-- corepid_get_resp_schema
+
+'** Responses - Content - Representation - Properties**'
+firerep_get_resp_schema *-- firerep_get_resp_schema_prop
+firerep_post_resp_schema *-- firerep_post_resp_schema_prop
+firerepid_get_resp_schema *-- firerepid_get_resp_schema_prop
+corep_get_resp_schema *-- corep_get_resp_schema_prop
+corep_post_resp_schema *-- corep_post_resp_schema_prop
+corepid_get_resp_schema *-- corepid_get_resp_schema_prop
 @enduml
