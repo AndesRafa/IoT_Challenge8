@@ -1,17 +1,16 @@
 @startuml
-
 'Title'
-title Conflict Solver - Component
+title RESTful API Adapter - Component
 
 'Use UML2 icons'
 skinparam componentStyle uml2
 
 
 'Components'
-component "API Manager" as apimngr
-component "Compatibility Checker" as compchecker
-component "Node Solver" as nodesolver
-component "Node Coordinator" as nodecoor
+component "API Version Manager" as apimngr
+component "API Differential Comparer" as compchecker
+component "API Conflict Solver" as nodesolver
+component "API Adaptation Mediator" as nodecoor
 
 
 'Interfaces'
@@ -22,7 +21,7 @@ interface "CoAP" as coap_apicloud
 
 
 'Clouds'
-cloud "Node Cloud" as nodecloud {
+cloud "Message Adapter Chain" as nodecloud {
     component "Adaptation Node 1...N" as apinodes
 }
 cloud "API Cloud" as apicloud {
@@ -31,7 +30,7 @@ cloud "API Cloud" as apicloud {
 
 'Repositories'
 database "API Repository" as apirep
-database "Node Link Repository" as noderep
+database "Adaptation Flow Reposiory" as noderep
 
 
 'Relations'
@@ -50,7 +49,8 @@ apimngr -right-> apirep
 note right of nodecoor
     Works as HTTP Proxy.
     Redirects all requests properly
-    to nodes in the adaptation cloud.
+    to the first link in the Message 
+    Adapter Chain.
 end note
 
 note right of compchecker
@@ -61,9 +61,9 @@ note right of compchecker
 end note
 
 note left of nodesolver
-    Parses API differentials
+    Renders API differentials
     into link navigations accross
-    the node cloud.
+    the Message Adapter Chain.
 end note
 
 note left of apimngr
@@ -85,5 +85,4 @@ note right of apicloud
     Holds the latest version of the APIS
     for system client IoT devices.
 end note
-
 @enduml
