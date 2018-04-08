@@ -16,7 +16,7 @@ component "API Adaptation Mediator" as nodecoor
 'Interfaces'
 interface "HTTP" as http_nodecoor
 interface "HTTP" as http_nodecloud
-interface "CoAP" as coap_apicloud
+interface "HTTP" as http_apicloud
 
 
 
@@ -38,8 +38,8 @@ http_nodecoor -down- nodecoor
 nodecoor -left-> noderep
 nodecoor -down-( http_nodecloud
 http_nodecloud -right- nodecloud
-nodecloud -down-( coap_apicloud
-coap_apicloud -right- apicloud
+nodecloud -down-( http_apicloud
+http_apicloud -right- apicloud
 nodesolver -up-> noderep
 nodesolver <-right- compchecker
 compchecker -down-> apirep
@@ -47,7 +47,6 @@ apimngr -right-> apirep
 
 'Notes'
 note right of nodecoor
-    Works as HTTP Proxy.
     Redirects all requests properly
     to the first link in the Message 
     Adapter Chain.
