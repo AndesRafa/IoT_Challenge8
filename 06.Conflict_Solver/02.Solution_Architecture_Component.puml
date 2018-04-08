@@ -52,6 +52,12 @@ note right of nodecoor
     Adapter Chain.
 end note
 
+note left of noderep
+    Stores information on how messages 
+    are delivered across the links in the 
+    Message Adapter Chain
+end note
+
 note right of compchecker
     Compares two versions 
     of an API definition.
