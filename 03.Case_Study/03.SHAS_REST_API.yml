@@ -4,7 +4,7 @@ info:
   description: >-
     Smart-Home Alarm System RESTful API for Fire and Carbon Monoxide measurement
     and alerting.
-  version: 0.0.1
+  version: 0.0.2
 servers:
   - url: 'https://shas.io/v1'
     description: Production environment.
